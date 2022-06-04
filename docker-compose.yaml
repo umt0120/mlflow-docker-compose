@@ -28,17 +28,16 @@ services:
     depends_on:
       - postgresql
       - waitfordb
-    volumes:
-      - ${CREDENTIALS_PATH}:/opt/application_default_credentials.json
     environment:
       DB_URI: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/mlflow-db
-      GCP_STORAGE_BUCKET: "${GCP_STORAGE_BUCKET}"
+      DEFAULT_ARTIFACT_ROOT: ${DEFAULT_ARTIFACT_ROOT}
       VIRTUAL_HOST: ${HOST}
       VIRTUAL_PORT: 80
       LETSENCRYPT_HOST: ${HOST}
       LETSENCRYPT_EMAIL: example@gmail.com
-      GOOGLE_APPLICATION_CREDENTIALS: /opt/application_default_credentials.json
-      GCLOUD_PROJECT: ${GCLOUD_PROJECT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -55,7 +54,7 @@ services:
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - conf:/etc/nginx/conf.d
-    environment: 
+    environment:
       DEFAULT_HOST: ${HOST}
       DHPARAM_GENERATION: "false"
       HTTPS_METHOD: noredirect
