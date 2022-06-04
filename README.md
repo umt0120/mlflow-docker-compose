@@ -71,4 +71,3 @@ $ sudo docker-compose stop mlflow && \
 
 In case you'd like to run MLflow on your on-premises server, `on_premises` folder is for you.
 Batteries (sample setting files) included.
-[](https://qiita.com/yuichi1992_west/items/e842d8ee50c4afd88775#0-%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6)
